@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Hotel } from "../../types/hotel";
+import api from "../../services/api";
 
 interface UseHotelsResult {
   hotels: Hotel[];
@@ -16,9 +17,7 @@ const useHotels = (): UseHotelsResult => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axios.get<Hotel[]>(
-          "https://localhost:5001/api/hotels/all"
-        );
+        const response = await api.get<Hotel[]>("/hotels/all");
         console.log("API Response:", response.data); // Log the API response
         setHotels(response.data);
       } catch (err) {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./auth-forms.css";
 import ConfirmationModal from "./confirmation-modal/confirmation-modal";
 import ErrorMessage from "../error-components/error-message/error-message";
 import { ErrorResponse } from "../../types/error";
+import { registerUser, verifyEmail } from "../../services/authService";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -23,10 +23,7 @@ const Register: React.FC = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post(
-        "https://localhost:5001/api/users/register",
-        { email, username, password }
-      );
+      await registerUser(email, username, password);
       setMessage("");
       setIsRegistered(true);
     } catch (error) {
@@ -50,10 +47,7 @@ const Register: React.FC = () => {
 
   const handleVerifyEmail = async () => {
     try {
-      const response = await axios.post(
-        "https://localhost:5001/api/users/verify-email",
-        { email, verificationCode }
-      );
+      await verifyEmail(email, verificationCode);
       setMessage("");
       setIsRegistered(false);
       setIsConfirmationOpen(true);

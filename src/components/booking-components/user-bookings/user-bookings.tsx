@@ -4,6 +4,7 @@ import "./user-bookings.css";
 import { useAuth } from "../../authentication-components/auth-context";
 import { Booking } from "../../../types/booking";
 import UserBookingCard from "../user-booking-card/user-booking-card";
+import api from "../../../services/api";
 
 const UserBookings: React.FC = () => {
   const { auth } = useAuth();
@@ -12,14 +13,11 @@ const UserBookings: React.FC = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(
-          "https://localhost:5001/api/bookings/user-bookings",
-          {
-            headers: {
-              Authorization: `Bearer ${auth.token}`,
-            },
-          }
-        );
+        const response = await api.get("/bookings/user-bookings", {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        });
         setBookings(response.data);
         console.log(response.data);
       } catch (error) {

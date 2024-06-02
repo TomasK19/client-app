@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "./auth-context";
 import { jwtDecode } from "jwt-decode";
 import "./auth-forms.css";
 import { ErrorResponse } from "../../types/error";
+import { loginUser } from "../../services/authService";
 
 interface DecodedToken {
   username: string;
@@ -19,11 +19,11 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        "https://localhost:5001/api/users/login",
-        { username, password }
-      );
-      const { token, email: userEmail, userId } = response.data;
+      const {
+        token,
+        email: userEmail,
+        userId,
+      } = await loginUser(username, password);
       const decodedToken = jwtDecode<DecodedToken>(token);
       const userUsername = decodedToken.username; // Retrieve username from token
       login(token, userEmail, userId, userUsername);
