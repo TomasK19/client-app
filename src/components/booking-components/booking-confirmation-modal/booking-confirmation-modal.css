@@ -1,0 +1,76 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.booking-confirmation-modal-modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.booking-details p {
+  margin: 0.5rem 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.modal-actions .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-actions .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.modal-actions .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.modal-actions .btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: #fff;
+}
+
+.modal-actions .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+@media (min-width: 576px) {
+  .booking-confirmation-modal-modal-content {
+    padding: 2rem;
+    max-width: 400px;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+  }
+
+  .booking-details p {
+    font-size: 1rem;
+  }
+}

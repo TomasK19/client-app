@@ -1,0 +1,39 @@
+/* user-bookings.css */
+
+.user-bookings-container {
+  max-width: 100%; /* Full width on mobile */
+  margin: 25px auto 50px;
+  padding: 1rem; /* Reduced padding for mobile */
+  background-color: #ffffff; /* Light background for the container */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  color: #343a40; /* Dark text color */
+  font-family: "Roboto", sans-serif; /* Use a modern font */
+  text-align: center;
+}
+
+.user-bookings-container h2 {
+  font-size: 1.5rem; /* Smaller font size for mobile */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.booking-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* Center the cards */
+}
+
+@media (min-width: 576px) {
+  .user-bookings-container {
+    max-width: 500px; /* Larger width for larger screens */
+    padding: 2rem; /* Increased padding for larger screens */
+  }
+
+  .user-bookings-container h2 {
+    font-size: 2rem; /* Larger font size for larger screens */
+    margin-bottom: 1.5rem;
+  }
+}

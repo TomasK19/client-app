@@ -1,0 +1,81 @@
+.hotel-list-page {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.filter-sidebar {
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.hotel-list-container {
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 600px) {
+  .hotel-list-page {
+    flex-direction: row;
+    width: 70%;
+  }
+
+  .filter-sidebar {
+    width: 20%;
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
+
+  .hotel-list-container {
+    width: 80%;
+  }
+}
+
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #333;
+  text-align: left;
+}
+
+.search-bar-container {
+  margin-bottom: 1rem;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.sort-bar-container {
+  margin-bottom: 1rem;
+}
+
+.sort-bar {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.hotel-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.no-hotels-message {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  color: #333;
+  text-align: center;
+}

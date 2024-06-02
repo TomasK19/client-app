@@ -1,0 +1,53 @@
+.topbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff; /* Blue background */
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.topbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-logo img {
+  height: 40px;
+}
+
+.topbar-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+.topbar-link:hover {
+  color: #ff4081;
+}
+
+.topbar-welcome {
+  color: #fff;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+.topbar-logout {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  margin: 0 1rem;
+  padding: 0;
+  transition: color 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+.topbar-logout:hover {
+  color: #ff4081;
+}
