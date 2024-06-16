@@ -14,7 +14,7 @@ interface BookingPageProps {
 const BookingPage: React.FC<BookingPageProps> = ({ hotel }) => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const auth = useAuth(); // Correctly destructure auth
+  const auth = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

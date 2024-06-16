@@ -10,8 +10,10 @@ import {
   sortHotels,
 } from "../../../utils/searchUtils";
 import HotelCard from "../hotel-card/hotel-card";
-import useHotels from "../../../hooks/hotel-hooks/use-hotels";
 import FilterSidebar from "../../filter-components/filter-sidebar";
+import { useQuery } from "@tanstack/react-query";
+import api from "../../../services/api";
+import axios from "axios";
 
 const ratingOptions = [
   { label: "9 and above", value: 9 },
@@ -36,8 +38,21 @@ const sortOptions = [
   { label: "Stars: Low to High", value: "stars_asc" },
 ];
 
+const fetchHotels = async (): Promise<Hotel[]> => {
+  const response = await api.get<Hotel[]>("/hotels/all");
+  return response.data;
+};
 const HotelList: React.FC = () => {
-  const { hotels, loading, error } = useHotels();
+  const {
+    data: hotels,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Hotel[], Error>({
+    queryKey: ["hotels"],
+    queryFn: fetchHotels,
+  });
+
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
   const [selectedStarCounts, setSelectedStarCounts] = useState<number[]>([]);
@@ -67,6 +82,23 @@ const HotelList: React.FC = () => {
     setSortOption(e.target.value);
   };
 
+  if (isLoading)
+    return (
+      <div className="text-center mt-5">
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  if (isError)
+    return <p className="text-danger text-center mt-5">{error.message}</p>;
+
+  if (!hotels) {
+    return (
+      <p className="text-danger text-center mt-5">No hotels data available.</p>
+    );
+  }
+
   const filteredHotelsByQuery = filterHotelsByQuery(hotels, searchTerm);
   const filteredHotelsByRatings =
     selectedRatings.length > 0
@@ -77,16 +109,6 @@ const HotelList: React.FC = () => {
       ? filterHotelsByStarCounts(filteredHotelsByRatings, selectedStarCounts)
       : filteredHotelsByRatings;
   const filteredAndSortedHotels = sortHotels(filteredHotelsByStars, sortOption);
-
-  if (loading)
-    return (
-      <div className="text-center mt-5">
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
-  if (error) return <p className="text-danger text-center mt-5">{error}</p>;
 
   return (
     <div className="hotel-list-page">

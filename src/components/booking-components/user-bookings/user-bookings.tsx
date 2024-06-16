@@ -5,30 +5,47 @@ import { useAuth } from "../../authentication-components/auth-context";
 import { Booking } from "../../../types/booking";
 import UserBookingCard from "../user-booking-card/user-booking-card";
 import api from "../../../services/api";
+import { useQuery } from "@tanstack/react-query";
 
 const UserBookings: React.FC = () => {
   const { auth } = useAuth();
-  const [bookings, setBookings] = useState<Booking[]>([]);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await api.get("/bookings/user-bookings", {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        });
-        setBookings(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching bookings", error);
-      }
-    };
+  const fetchBookings = async (): Promise<Booking[]> => {
+    const response = await api.get<Booking[]>("/bookings/user-bookings", {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    return response.data;
+  };
 
-    if (auth.token) {
-      fetchBookings();
-    }
-  }, [auth.token]);
+  const {
+    data: bookings,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Booking[], Error>({
+    queryKey: ["bookings"],
+    queryFn: fetchBookings,
+  });
+
+  if (isLoading)
+    return (
+      <div className="text-center mt-5">
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+
+  if (isError)
+    return <p className="text-danger text-center mt-5">{error.message}</p>;
+
+  if (!bookings) {
+    return (
+      <p className="text-danger text-center mt-5">No hotels data available.</p>
+    );
+  }
 
   if (!auth.token) {
     return <p>Please log in to see your bookings.</p>;
